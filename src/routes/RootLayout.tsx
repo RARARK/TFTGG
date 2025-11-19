@@ -6,7 +6,7 @@ export default function RootLayout() {
     <div className="min-h-screen flex">
       {/* 사이드바 */}
       <aside className="w-56 border-r p-4 space-y-3">
-        <h1 className="text-xl font-bold">MetaTft</h1>
+        <h1 className="text-xl font-bold">MetaTftttt</h1>
 
         <nav className="flex flex-col gap-2">
           <NavLink
