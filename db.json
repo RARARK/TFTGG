@@ -1,0 +1,6 @@
+{
+  "champions": [
+    { "id": "ahri",  "name": "Ahri",  "cost": 3, "traits": ["Invoker"] },
+    { "id": "garen", "name": "Garen", "cost": 1, "traits": ["Warden"] }
+  ]
+}
