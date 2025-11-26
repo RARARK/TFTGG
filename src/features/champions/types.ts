@@ -10,11 +10,16 @@ export interface ChampionStats {
   initialMana: number
 }
 
+export interface AbilityVariable{
+  name: string
+  value:number[]
+}
+
 export interface ChampionAbility {
   name: string
   desc: string
   icon: string
-  value: number[]
+  variables: AbilityVariable[]
 }
 
 export interface Champion {

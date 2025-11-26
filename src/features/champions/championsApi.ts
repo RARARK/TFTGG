@@ -64,7 +64,7 @@ export const championsApi = api.injectEndpoints({
               name: c.ability?.name ?? '',
               desc: c.ability?.desc ?? '',
               icon: toCDragonPng(c.ability?.icon),
-              value:c.ability?.variables ?? ''
+              variables:c.ability?.variables ?? ''
             },
             stats: {
               hp: c.stats?.hp ?? 0,

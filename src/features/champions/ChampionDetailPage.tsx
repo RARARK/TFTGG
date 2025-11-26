@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { useGetChampionsQuery } from './championsApi'
 import { ChampionAbilityPanel } from  './ChampionAbilityPanel'
+import { ChampionStatsPanel } from './ChampionStatsPanel'
 
-export function ChampionAbilityPage() {
+export function ChampionDetailPage() {
     const { apiName } = useParams<{ apiName: string }>()
     const { data: champs, isLoading, isError } = useGetChampionsQuery()
 
@@ -17,7 +18,8 @@ export function ChampionAbilityPage() {
     <div>
       <h1>{champ.name}</h1>
       {/* 여기서 능력치/특성 등 보여주고 */}
-      <ChampionAbilityPanel ability={champ.ability} />
+      <ChampionStatsPanel stats={champ.stats}/>
+      <ChampionAbilityPanel ability={champ.ability}/>
     </div>
   )
 
