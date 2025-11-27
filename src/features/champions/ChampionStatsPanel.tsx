@@ -1,6 +1,6 @@
 import type { ChampionStats } from "./types"
 import { getStarHp, getStarAD } from './ChampionStatsUtil'
-import {AD,AP,Armor,AS,Health,MagicResist,Mana,Range} from '../../assets/images/icons/stats'
+import {AD,Armor,AS,Health,MagicResist,Mana,Range} from '../../assets/images/icons/stats'
 
 interface championStatsPanelprops {
     stats: ChampionStats
@@ -20,53 +20,70 @@ const ad2 = getStarAD(damage, 2)
 const ad3 = getStarAD(damage, 3)
 
     return (
-    <section className="...">
-      <h2 className="...">스탯 (1 / 2 / 3성)</h2>
-      <table>
-        <thead>
-            <tr>
-                <th>
-                    <img src={Health} alt="체력" className="inline-block w-4 h-4 mr-1" />
-                    체력
-                </th>
-                <th>
-                    <img src={AD} alt="데미지" className="inline-block w-4 h-4 mr-1" />
-                    데미지
-                </th>
-                <th>
-                    <img src={Armor} alt="방어력" className="inline-block w-4 h-4 mr-1" />
-                    방어력
-                </th>
-                <th>
-                    <img src={MagicResist} alt="마법저항력" className="inline-block w-4 h-4 mr-1" />
-                    마법 저항력
-                </th>
-                <th>
-                    <img src={AS} alt="공격 속도" className="inline-block w-4 h-4 mr-1" />
-                    공격 속도
-                </th>
-                <th>
-                    <img src={Range} alt="범위" className="inline-block w-4 h-4 mr-1" />
-                    범위
-                </th>
-                <th>
-                    <img src={Mana} alt="마나" className="inline-block w-4 h-4 mr-1" />
-                    마나
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{hp1}/{hp2}/{hp3}</td>
-                <td>{ad1}/{ad2}/{ad3}</td>
-                <td>{armor}</td>
-                <td>{magicResist}</td>
-                <td>{attackSpeed.toFixed(2)}</td>
-                <td>{range}</td>
-                <td>{initialMana}/{mana}</td>
-            </tr>
-        </tbody>
-      </table>
-    </section>
+    <section className="rounded-lg border border-slate-700 bg-slate-900/60 p-3">
+  <h2 className="mb-3 text-slate-50">스탯 (1 / 2 / 3성)</h2>
+
+  <table className="w-full text-sm text-slate-200 border-collapse">
+    <thead>
+      <tr className="border-b border-slate-700">
+        <th className="py-2 text-center">
+          <div className="flex items-center justify-center gap-1">
+            <img src={Health} className="w-4 h-4" />
+            체력
+          </div>
+        </th>
+        <th className="py-2 text-center">
+          <div className="flex items-center justify-center gap-1">
+            <img src={AD} className="w-4 h-4" />
+            데미지
+          </div>
+        </th>
+        <th className="py-2 text-center">
+          <div className="flex items-center justify-center gap-1">
+            <img src={Armor} className="w-4 h-4" />
+            방어력
+          </div>
+        </th>
+        <th className="py-2 text-center">
+          <div className="flex items-center justify-center gap-1">
+            <img src={MagicResist} className="w-4 h-4" />
+            마법저항력
+          </div>
+        </th>
+        <th className="py-2 text-center">
+          <div className="flex items-center justify-center gap-1">
+            <img src={AS} className="w-4 h-4" />
+            공격 속도
+          </div>
+        </th>
+        <th className="py-2 text-center">
+          <div className="flex items-center justify-center gap-1">
+            <img src={Range} className="w-4 h-4" />
+            거리
+          </div>
+        </th>
+        <th className="py-2 text-center">
+          <div className="flex items-center justify-center gap-1">
+            <img src={Mana} className="w-4 h-4" />
+            마나
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr className="text-center text-slate-50">
+        <td>{hp1}/{hp2}/{hp3}</td>
+        <td>{ad1}/{ad2}/{ad3}</td>
+        <td>{armor}</td>
+        <td>{magicResist}</td>
+        <td>{attackSpeed.toFixed(2)}</td>
+        <td>{range}</td>
+        <td>{initialMana}/{mana}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
   )
 }

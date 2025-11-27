@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useGetChampionsQuery } from './championsApi'
 import { ChampionAbilityPanel } from  './ChampionAbilityPanel'
 import { ChampionStatsPanel } from './ChampionStatsPanel'
+import {ChampionTraitsPanel} from './ChampionTraitsPanel'
 
 export function ChampionDetailPage() {
     const { apiName } = useParams<{ apiName: string }>()
@@ -16,8 +17,8 @@ export function ChampionDetailPage() {
 
   return (
     <div>
-      <h1>{champ.name}</h1>
       {/* 여기서 능력치/특성 등 보여주고 */}
+      <ChampionTraitsPanel champ={champ}/>
       <ChampionStatsPanel stats={champ.stats}/>
       <ChampionAbilityPanel ability={champ.ability}/>
     </div>

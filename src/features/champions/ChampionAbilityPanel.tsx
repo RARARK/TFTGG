@@ -1,21 +1,10 @@
 import type {ChampionAbility} from './types';
 import type {AbilityVariable} from './types';
-import type {ChampionStats} from './types';
 
 interface ChampionAbilitypanelprops {
   ability: ChampionAbility
 }
 
-interface championAbilitystats {
-  status: ChampionStats
-}
-
-type VarRow = {
-  name: string
-  star1?: number
-  star2?: number
-  star3?: number
-}
 
 // --- 헬퍼 함수: value 배열에서 1/2/3성 값만 뽑기 ---
 function getStars(value?: number[]): { star1?: string; star2?: string; star3?: string } {
