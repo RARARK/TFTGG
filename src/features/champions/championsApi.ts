@@ -2,7 +2,7 @@
 import { api } from '../../app/api'
 import type { Champion } from './types'
 
-const SET_NUMBER = 15
+const SET_NUMBER = 16
 const SET_PREFIX = `TFT${SET_NUMBER}_`
 
 const toCDragonPng = (path?: string) =>
