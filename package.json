@@ -13,6 +13,7 @@
     "@fontsource-variable/open-sans": "^5.2.6",
     "@heroicons/react": "^2.2.0",
     "@reduxjs/toolkit": "^2.9.2",
+    "@supabase/supabase-js": "^2.87.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",

@@ -2,8 +2,11 @@
 import { Link } from 'react-router-dom';
 import { useGetChampionsQuery } from './championsApi';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import { useState, useMemo } from 'react';
+import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
+import { StarIcon as StarOutline } from '@heroicons/react/24/outline';
+import { useState, useMemo, useEffect } from 'react';
 import { ChampionFilters } from './ChampionsFilters';
+import { supabase } from '../../lib/supabaseClient';
 
 export default function ChampionsPage() {
   const { data, isLoading, isError } = useGetChampionsQuery();
@@ -12,7 +15,42 @@ export default function ChampionsPage() {
   const [selectedCost, setSelectedCost] = useState<'all' | number>('all');
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [selectedTraits, setSelectedTraits] = useState<string[]>([]);
-  type Cost = 1 | 2 | 3 | 4 | 5;
+
+  const toggleFavorite = async (champId: string) => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session?.user) {
+      alert('로그인이 필요합니다');
+      return;
+    }
+
+    if (favoriteIds.has(champId)) {
+      // 이미 즐겨찾기 → 삭제
+      await supabase
+        .from('favorites')
+        .delete()
+        .eq('user_id', session.user.id)
+        .eq('kind', 'champion')
+        .eq('target', champId);
+
+      setFavoriteIds((prev) => {
+        const next = new Set(prev);
+        next.delete(champId);
+        return next;
+      });
+    } else {
+      // 즐겨찾기 추가
+      await supabase.from('favorites').insert({
+        user_id: session.user.id,
+        kind: 'champion',
+        target: champId,
+      });
+
+      setFavoriteIds((prev) => new Set(prev).add(champId));
+    }
+  };
 
   const COST_BG_CLASS: Record<number, string> = {
     1: 'from-slate-800 to-slate-700',
@@ -77,6 +115,51 @@ export default function ChampionsPage() {
     });
   }, [champs, searchText, selectedCost, selectedRoles, selectedTraits]);
 
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    let alive = true;
+
+    const loadFavorites = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      // 로그인 안 됨 → 즐겨찾기 비움
+      if (!session?.user) {
+        if (alive) setFavoriteIds(new Set());
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('favorites')
+        .select('target')
+        .eq('user_id', session.user.id)
+        .eq('kind', 'champion');
+
+      if (error) {
+        console.error(error);
+        if (alive) setFavoriteIds(new Set());
+        return;
+      }
+
+      const ids = new Set((data ?? []).map((row) => row.target));
+      if (alive) setFavoriteIds(ids);
+    };
+
+    loadFavorites();
+
+    // auth 변화(로그인/로그아웃) 시에도 다시 로드
+    const { data: sub } = supabase.auth.onAuthStateChange(() => {
+      loadFavorites();
+    });
+
+    return () => {
+      alive = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
   if (isLoading)
     return <p className='text-gray-400 animate-pulse'>로딩 중...</p>;
   if (isError)
@@ -127,7 +210,23 @@ export default function ChampionsPage() {
                 bg-gradient-to-br ${getCostBgGradient(champ.cost)}`}
             />
             <div className='mt-2'>
-              <h3 className='font-semibold text-sm'>{champ.name}</h3>
+              <div className='flex items-center'>
+                <h3 className='font-semibold text-sm'>{champ.name}</h3>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleFavorite(champ.id);
+                  }}
+                  aria-label='즐겨찾기'
+                >
+                  {favoriteIds.has(champ.id) ? (
+                    <StarSolid className='w-5 h-5 text-yellow-400 hover:text-yellow-300 transition-colors' />
+                  ) : (
+                    <StarOutline className='w-5 h-5 text-gray-400 hover:text-yellow-300 transition-colors' />
+                  )}
+                </button>
+              </div>
               <p className='text-xs text-gray-500'>
                 Cost: {champ.cost} / {champ.traits.join(', ')}
               </p>

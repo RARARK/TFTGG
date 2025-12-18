@@ -1,8 +1,9 @@
 // src/features/items/AugmentsPage.tsx
 import { useEffect, useState, useMemo } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon, UserIcon } from '@heroicons/react/24/solid';
 import { useGetAugmentsQuery } from './ItemsApi';
 import type { Item } from './types';
+import { Link } from 'react-router-dom';
 
 export function AugmentsPage() {
   const { data, isLoading, isError } = useGetAugmentsQuery();
@@ -78,6 +79,12 @@ export function AugmentsPage() {
             onChange={(e) => setSearchText(e.target.value)}
             className='rounded-lg border border-slate-700 bg-slate-900/60 px-3 py-1 text-sm text-slate-100 w-[200px]'
           />
+          <Link to='/auth'>
+            <UserIcon
+              className='w-8 h-8 text-slate-400 hover:text-slate-800 cursor-pointer'
+              aria-label='login'
+            />
+          </Link>
         </div>
       </div>
 
