@@ -15,6 +15,7 @@ export default function ChampionsPage() {
   const [selectedCost, setSelectedCost] = useState<'all' | number>('all');
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [selectedTraits, setSelectedTraits] = useState<string[]>([]);
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
 
   const toggleFavorite = async (champId: string) => {
     const {
@@ -114,8 +115,6 @@ export default function ChampionsPage() {
       return nameMatch && costMatch && roleMatch && traitMatch;
     });
   }, [champs, searchText, selectedCost, selectedRoles, selectedTraits]);
-
-  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     let alive = true;

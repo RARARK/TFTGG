@@ -5,7 +5,7 @@ import ChampionsPage from './features/champions/ChampionsPage';
 import { ChampionDetailPage } from './features/champions/ChampionDetailPage';
 import { AugmentsPage } from './features/Items/AugmentPage';
 import { AuthQuickTest } from './features/auth/AuthQuickTest';
-import { FavoritesPage } from './features/Favorites/FavoritesPage';
+import FavoritesPage from './features/Favorites/FavoritesPage';
 
 export default function App() {
   return (
