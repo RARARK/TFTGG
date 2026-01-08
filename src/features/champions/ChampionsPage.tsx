@@ -1,12 +1,13 @@
 // src/features/champions/ChampionsPage.tsx
 import { Link } from 'react-router-dom';
 import { useGetChampionsQuery } from './championsApi';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon, UserIcon } from '@heroicons/react/24/solid';
 import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
 import { StarIcon as StarOutline } from '@heroicons/react/24/outline';
 import { useState, useMemo, useEffect } from 'react';
 import { ChampionFilters } from './ChampionsFilters';
 import { supabase } from '../../lib/supabaseClient';
+import { UserAvatarButton } from '../../components/UserAvatarButton';
 
 export default function ChampionsPage() {
   const { data, isLoading, isError } = useGetChampionsQuery();
@@ -179,6 +180,7 @@ export default function ChampionsPage() {
             onChange={(e) => setSearchText(e.target.value)}
             className='rounded-lg border border-slate-700 bg-slate-900/60 px-3 py-1 text-sm text-slate-100 w-[170px]'
           />
+          <UserAvatarButton />
         </div>
       </div>
 

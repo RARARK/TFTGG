@@ -6,7 +6,8 @@ import { ChampionDetailPage } from './features/champions/ChampionDetailPage';
 import { AugmentsPage } from './features/Items/AugmentPage';
 import { AuthQuickTest } from './features/auth/AuthQuickTest';
 import FavoritesPage from './features/Favorites/FavoritesPage';
-
+import { Mypage } from './features/Mypage/Mypage';
+import ProfilePage from './features/Mypage/ProfilePage';
 export default function App() {
   return (
     <Routes>
@@ -15,10 +16,9 @@ export default function App() {
         <Route path='/champions' element={<ChampionsPage />} />
         <Route path='/Augments' element={<AugmentsPage />} />
         <Route path='/Favorites' element={<FavoritesPage />} />
-        <Route
-          path='champions/:apiName'
-          element={<ChampionDetailPage />}
-        ></Route>
+        <Route path='champions/:apiName' element={<ChampionDetailPage />} />
+        <Route path='MYpage' element={<Mypage />} />
+        <Route path='profile' element={<ProfilePage />} />
         <Route path='auth' element={<AuthQuickTest />} />
         <Route path='*' element={<p>404 Not Found</p>} />
       </Route>

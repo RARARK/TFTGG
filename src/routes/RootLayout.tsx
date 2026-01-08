@@ -36,6 +36,15 @@ export default function RootLayout() {
             Favorites
           </NavLink>
 
+          <NavLink
+            to='/Mypage'
+            className={({ isActive }) =>
+              isActive ? 'font-semibold text-blue-500' : ''
+            }
+          >
+            Mypage
+          </NavLink>
+
           {/* 나중에 Builder, Meta, Augments 등 메뉴 추가 예정 */}
         </nav>
       </aside>
